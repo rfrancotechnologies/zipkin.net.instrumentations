@@ -10,12 +10,17 @@ using System.Net;
 using System.Net.Cache;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
+using Zipkin;
 
 namespace Zipkin4RestSharp
 {
     public class ZipkinRestClient: IRestClient
     {
         private IRestClient _innerClient;
+
+		private const string traceIdB3Header = "X-B3-TraceId";
+		private const string spanIdB3Header = "X-B3-SpanId";
+		private const string parentSpanIdB3Header = "X-B3-ParentSpanId";
 
         public ZipkinRestClient(IRestClient innerClient): base()
         {
@@ -234,127 +239,188 @@ namespace Zipkin4RestSharp
 
         public virtual IRestResponse Execute(IRestRequest request)
         {
-            return _innerClient.Execute(request);
+            InjectZipkinTraces(request);
+			using (GetClientSendTrace(request))
+			{
+	            return _innerClient.Execute(request);
+			}
         }
 
         public IRestResponse<T> Execute<T>(IRestRequest request) where T : new()
         {
-            throw new NotImplementedException();
-        }
+            InjectZipkinTraces(request);
+			using (GetClientSendTrace(request))
+			{
+				return _innerClient.Execute<T>(request);
+			}
+		}
 
         public IRestResponse ExecuteAsGet(IRestRequest request, string httpMethod)
         {
-
-        }
+            InjectZipkinTraces(request);
+			using (GetClientSendTrace(request))
+			{
+				return _innerClient.ExecuteAsGet(request, httpMethod);
+			}
+		}
 
         public IRestResponse<T> ExecuteAsGet<T>(IRestRequest request, string httpMethod) where T : new()
         {
-            throw new NotImplementedException();
-        }
+            InjectZipkinTraces(request);
+			using (GetClientSendTrace(request))
+			{
+				return _innerClient.ExecuteAsGet<T>(request, httpMethod);
+			}
+		}
 
         public IRestResponse ExecuteAsPost(IRestRequest request, string httpMethod)
         {
-            throw new NotImplementedException();
-        }
+            InjectZipkinTraces(request);
+			using (GetClientSendTrace(request))
+			{
+				InjectZipkinTraces(request);
+				return _innerClient.ExecuteAsPost(request, httpMethod);
+			}
+		}
 
         public IRestResponse<T> ExecuteAsPost<T>(IRestRequest request, string httpMethod) where T : new()
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecuteAsPost<T>(request, httpMethod);
         }
 
         public RestRequestAsyncHandle ExecuteAsync(IRestRequest request, Action<IRestResponse, RestRequestAsyncHandle> callback)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecuteAsync(request, callback);
         }
 
         public RestRequestAsyncHandle ExecuteAsync<T>(IRestRequest request, Action<IRestResponse<T>, RestRequestAsyncHandle> callback)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecuteAsync<T>(request, callback);
         }
 
         public RestRequestAsyncHandle ExecuteAsyncGet(IRestRequest request, Action<IRestResponse, RestRequestAsyncHandle> callback, string httpMethod)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecuteAsyncGet(request, callback, httpMethod);
         }
 
         public RestRequestAsyncHandle ExecuteAsyncGet<T>(IRestRequest request, Action<IRestResponse<T>, RestRequestAsyncHandle> callback, string httpMethod)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecuteAsyncGet<T>(request, callback, httpMethod);
         }
 
         public RestRequestAsyncHandle ExecuteAsyncPost(IRestRequest request, Action<IRestResponse, RestRequestAsyncHandle> callback, string httpMethod)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecuteAsyncPost(request, callback, httpMethod);
         }
 
         public RestRequestAsyncHandle ExecuteAsyncPost<T>(IRestRequest request, Action<IRestResponse<T>, RestRequestAsyncHandle> callback, string httpMethod)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecuteAsyncPost<T>(request, callback, httpMethod);
         }
 
         public Task<IRestResponse> ExecuteGetTaskAsync(IRestRequest request)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecuteGetTaskAsync(request);
         }
 
         public Task<IRestResponse> ExecuteGetTaskAsync(IRestRequest request, CancellationToken token)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecuteGetTaskAsync(request, token);
         }
 
         public Task<IRestResponse<T>> ExecuteGetTaskAsync<T>(IRestRequest request)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecuteGetTaskAsync<T>(request);
         }
 
         public Task<IRestResponse<T>> ExecuteGetTaskAsync<T>(IRestRequest request, CancellationToken token)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecuteGetTaskAsync<T>(request, token);
         }
 
         public Task<IRestResponse> ExecutePostTaskAsync(IRestRequest request)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+			return _innerClient.ExecutePostTaskAsync(request);
         }
 
         public Task<IRestResponse> ExecutePostTaskAsync(IRestRequest request, CancellationToken token)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+            return _innerClient.ExecutePostTaskAsync(request, token);
         }
 
         public Task<IRestResponse<T>> ExecutePostTaskAsync<T>(IRestRequest request)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+            return _innerClient.ExecutePostTaskAsync<T>(request);
         }
 
         public Task<IRestResponse<T>> ExecutePostTaskAsync<T>(IRestRequest request, CancellationToken token)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+            return _innerClient.ExecutePostTaskAsync<T>(request, token);
         }
 
         public Task<IRestResponse> ExecuteTaskAsync(IRestRequest request)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+            return _innerClient.ExecuteTaskAsync(request);
         }
 
         public Task<IRestResponse> ExecuteTaskAsync(IRestRequest request, CancellationToken token)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+            return _innerClient.ExecuteTaskAsync(request, token);
         }
 
         public Task<IRestResponse<T>> ExecuteTaskAsync<T>(IRestRequest request)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+            return _innerClient.ExecuteTaskAsync<T>(request);
         }
 
         public Task<IRestResponse<T>> ExecuteTaskAsync<T>(IRestRequest request, CancellationToken token)
         {
-            throw new NotImplementedException();
+            InjectZipkinTraces(request);
+            return _innerClient.ExecuteTaskAsync<T>(request, token);
         }
 
         public void RemoveHandler(string contentType)
         {
-            throw new NotImplementedException();
+			_innerClient.RemoveHandler(contentType);
         }
+
+		private ITrace GetClientSendTrace(IRestRequest request)
+		{
+			var trace = new StartClientOrContinueTrace("http-request");
+			trace.TimeAnnotateWith(PredefinedTag.ClientSend);
+			trace.AnnotateWith(PredefinedTag.HttpMethod, request.Method.ToString());
+			trace.AnnotateWith(PredefinedTag.HttpHost, this.BaseUrl.ToString());
+			trace.AnnotateWith(PredefinedTag.HttpPath, request.Resource);
+			return trace;
+		}
+
+		private void InjectZipkinTraces(IRestRequest request)
+		{
+			var span = TraceContextPropagation.CurrentSpan;
+			if (span != null)
+			{
+				request.AddHeader(traceIdB3Header, span.TraceId.ToString());
+				request.AddHeader(spanIdB3Header, span.Id.ToString());
+				request.AddHeader(parentSpanIdB3Header, span.ParentId.ToString());
+			}
+		}
     }
 }
