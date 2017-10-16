@@ -6,7 +6,7 @@ Zipkin instrumentations for common use .NET frameworks based on the [Zipkin.net 
 
 ## Logging Owin HTTP Requests Into Zipkin
 
-In order to automatically log all the HTTP requests received by your Owin-based web application you have to reference the [Zipkin4Owin Nuget package](https://www.nuget.org/packages/Zipkin4Owin) in your project and setup the  Zipkin4Owin Owin middleware during the Owin start-up via the `UseZipkinTracer` extension method:
+In order to automatically log all the HTTP requests received by your Owin-based web application you have to reference the Zipkin4Owin Nuget package, [![Zipkin4Owin](https://img.shields.io/nuget/v/Zipkin4Owin?style=flat)](https://www.nuget.org/packages/Zipkin4Owin), in your project and setup the  Zipkin4Owin Owin middleware during the Owin start-up via the `UseZipkinTracer` extension method:
 ```cs
 using Zipkin4Owin;
 
@@ -44,7 +44,7 @@ If you are not familiar with the concept of a trace, span and parent span, I rec
 
 ## Logging Database Queries Into Zipkin
 
-In order to automatically log all your database queries into Zipkin you have to reference the [Zipkin4Ado Nuget package](https://www.nuget.org/packages/Zipkin4Ado) in your project and wrap your database connection (`DbConnection`) into a `ZipkinDbConnection`.
+In order to automatically log all your database queries into Zipkin you have to reference the Zipkin4Ado Nuget package, [![Zipkin4Ado](https://img.shields.io/nuget/v/Zipkin4Ado?style=flat)](https://www.nuget.org/packages/Zipkin4Ado), in your project and wrap your database connection (`DbConnection`) into a `ZipkinDbConnection`.
 
 ```cs
 DbConnection connection = new SqlConnection(_connectionString);
@@ -75,3 +75,5 @@ new Zipkin.ZipkinBootstrapper("my-service")
 ``` 
 
 If your application is an Owin web application and you are using the `Zipkin4Owin` library, you don't need to manually start the `ZipkinBootstrapper`, because `Zipkin4Owin` already does it for you.
+
+The idea of Zipkin4Ado is based on the amazing project [Glimpse](http://getglimpse.com/), which also has a database connection wrapper for automatically logging database activity.

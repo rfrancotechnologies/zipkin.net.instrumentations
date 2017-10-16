@@ -22,24 +22,16 @@ namespace Zipkin4RestSharp
             _innerClient = innerClient;
         }
 
-        public ZipkinRestClient(Uri baseUrl) : base(baseUrl)
-        {
-        }
-
-        public ZipkinRestClient(string baseUrl) : base(baseUrl)
-        {
-        }
-
         public IAuthenticator Authenticator
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.Authenticator;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.Authenticator = value;
             }
         }
 
@@ -47,12 +39,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.BaseUrl;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.BaseUrl = value;
             }
         }
 
@@ -60,12 +52,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.CachePolicy;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.CachePolicy = value;
             }
         }
 
@@ -73,12 +65,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.ClientCertificates;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.ClientCertificates = value;
             }
         }
 
@@ -86,12 +78,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.CookieContainer;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.CookieContainer = value;
             }
         }
 
@@ -99,7 +91,7 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.DefaultParameters;
             }
         }
 
@@ -107,12 +99,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.Encoding;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.Encoding = value;
             }
         }
 
@@ -120,12 +112,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.FollowRedirects;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.FollowRedirects = value;
             }
         }
 
@@ -133,12 +125,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.MaxRedirects;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.MaxRedirects = value;
             }
         }
 
@@ -146,12 +138,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.PreAuthenticate;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.PreAuthenticate = value;
             }
         }
 
@@ -159,12 +151,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.Proxy;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.Proxy = value;
             }
         }
 
@@ -172,12 +164,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.ReadWriteTimeout;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.ReadWriteTimeout = value;
             }
         }
 
@@ -185,12 +177,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.Timeout;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.Timeout = value;
             }
         }
 
@@ -198,12 +190,12 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.UserAgent;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.UserAgent = value;
             }
         }
 
@@ -211,38 +203,38 @@ namespace Zipkin4RestSharp
         {
             get
             {
-                throw new NotImplementedException();
+                return _innerClient.UseSynchronizationContext;
             }
 
             set
             {
-                throw new NotImplementedException();
+                _innerClient.UseSynchronizationContext = value;
             }
         }
 
         public void AddHandler(string contentType, IDeserializer deserializer)
         {
-            throw new NotImplementedException();
+            _innerClient.AddHandler(contentType, deserializer);
         }
 
         public Uri BuildUri(IRestRequest request)
         {
-            throw new NotImplementedException();
+            return _innerClient.BuildUri(request);
         }
 
         public void ClearHandlers()
         {
-            throw new NotImplementedException();
+            _innerClient.ClearHandlers();
         }
 
         public byte[] DownloadData(IRestRequest request)
         {
-            throw new NotImplementedException();
+            return _innerClient.DownloadData(request);
         }
 
-        public override IRestResponse Execute(IRestRequest request)
+        public virtual IRestResponse Execute(IRestRequest request)
         {
-            return base.Execute(request);
+            return _innerClient.Execute(request);
         }
 
         public IRestResponse<T> Execute<T>(IRestRequest request) where T : new()
