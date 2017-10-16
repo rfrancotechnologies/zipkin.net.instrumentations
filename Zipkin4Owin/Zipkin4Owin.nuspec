@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>Zipkin4Owin</id>
+		<version>0.1.0</version>
+		<title>Zipkin4Owin</title>
+		<authors>Rubén Martínez</authors>
+		<owners>Rubén Martínez</owners>
+		<licenseUrl>https://www.gnu.org/licenses/lgpl-3.0.en.html</licenseUrl>
+		<projectUrl>https://github.com/mediatechsolutions/zipkin.net.instrumentations</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Zipkin instrumentation for Owin based on the Zipkin.net library (https://www.nuget.org/packages/Zipkin/). It allows to automatically log every incoming HTTP request into Zipkin.</description>
+		<releaseNotes>First version.</releaseNotes>
+		<copyright>Copyright 2017</copyright>
+		<tags>Zipkin Metrics Owin HTTP</tags>
+		<dependencies>
+			<dependency id="Zipkin" version="1.0.10" />
+			<dependency id="Microsoft.Owin" version="[3.0,4.0)" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\Zipkin4Owin.dll" target="lib\net461" />
+	</files>
+</package>

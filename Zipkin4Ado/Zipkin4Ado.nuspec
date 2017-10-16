@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>Zipkin4Ado</id>
+		<version>0.1.0</version>
+		<title>Zipkin4Ado</title>
+		<authors>Rubén Martínez</authors>
+		<owners>Rubén Martínez</owners>
+		<licenseUrl>https://www.gnu.org/licenses/lgpl-3.0.en.html</licenseUrl>
+		<projectUrl>https://github.com/mediatechsolutions/zipkin.net.instrumentations</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Zipkin instrumentation for ADO queries in .NET based on the Zipkin.net library (https://www.nuget.org/packages/Zipkin/). It allows to automatically log every database query in to Zipkin.</description>
+		<releaseNotes>First version.</releaseNotes>
+		<copyright>Copyright 2017</copyright>
+		<tags>Zipkin Metrics Ado Query</tags>
+		<dependencies>
+			<dependency id="Zipkin" version="1.0.10" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\Zipkin4Ado.dll" target="lib\net461" />
+	</files>
+</package>
