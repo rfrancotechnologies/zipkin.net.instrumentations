@@ -36,7 +36,7 @@ In order to co-relate requests between different services in the processing of a
 
 The following are the expected standard Zipkin B3 HTTP headers:
 
-* `X-B3-TraceId`:
+* `X-B3-TraceId`
 * `X-B3-SpanId`
 * `X-B3-ParentSpanId`
 

@@ -44,7 +44,7 @@ namespace Zipkin4Owin
 			}
 			else
 			{
-				trace = new StartClientTrace();
+				trace = new StartClientTrace(traceName);
 			}
 
 			trace.TimeAnnotateWith(PredefinedTag.ServerRecv);

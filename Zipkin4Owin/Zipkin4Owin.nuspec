@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>Zipkin4Owin</id>
-		<version>0.1.0</version>
+		<version>0.2.1</version>
 		<title>Zipkin4Owin</title>
 		<authors>Rubén Martínez</authors>
 		<owners>Rubén Martínez</owners>
@@ -10,7 +10,8 @@
 		<projectUrl>https://github.com/mediatechsolutions/zipkin.net.instrumentations</projectUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Zipkin instrumentation for Owin based on the Zipkin.net library (https://www.nuget.org/packages/Zipkin/). It allows to automatically log every incoming HTTP request into Zipkin.</description>
-		<releaseNotes>First version.</releaseNotes>
+		<summary>Zipkin instrumentation for Owin based on the Zipkin.net library (https://www.nuget.org/packages/Zipkin/).</summary>
+		<releaseNotes>Fixed absence of trace name in the Owin traces when no Zipkin B3 headers are found in the HTTP request.</releaseNotes>
 		<copyright>Copyright 2017</copyright>
 		<tags>Zipkin Metrics Owin HTTP</tags>
 		<dependencies>
