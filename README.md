@@ -1,8 +1,11 @@
 # Zipkin.net Instrumentations
 
-Zipkin instrumentations for common use .NET frameworks based on the [Zipkin.net library](https://github.com/d-collab/zipkin.net). All the instrumentations allow automatic logging to Zipkin of different parts of your application activity, according to your framework of choice:
+[Zipkin](http://zipkin.io) is a distributed logging framework, that allows to analyze the behavior of complex applications, specially those based in microservices, with access to different databases. This project provides different Zipkin instrumentations for common use .NET frameworks based on the [Zipkin.net library](https://github.com/d-collab/zipkin.net). All the instrumentations allow automatic logging to Zipkin of different parts of your application activity, according to your framework of choice:
+
 * Owin: automatic logging of every incoming HTTP request to an Owin web interface.
-* Ado: automatic logging of every incoming HTTP request to an Owin web interface.
+* Ado: automatic logging of every database query.
+* RestSharp: automatic logging of every outgoing HTTP request via the RestSharp library.
+
 
 ## Logging Owin HTTP Requests Into Zipkin
 
@@ -77,3 +80,28 @@ new Zipkin.ZipkinBootstrapper("my-service")
 If your application is an Owin web application and you are using the `Zipkin4Owin` library, you don't need to manually start the `ZipkinBootstrapper`, because `Zipkin4Owin` already does it for you.
 
 The idea of Zipkin4Ado is based on the amazing project [Glimpse](http://getglimpse.com/), which also has a database connection wrapper for automatically logging database activity.
+
+## Logging RestSharp HTTP Requests Into Zipkin
+
+The Zipkin instrumentation for [RestSharp](http://restsharp.org/) serves 2 purposes:
+
+* Automatically logging every request made via RestSharp into Zipkin. Currently logging is only available in synchronous operations: `Execute`, `ExecuteAsGet`, etc.
+* Propagating the Zipkin traces information to the callee via standard Zipkin B3 HTTP headers.
+
+In order to start logging and propagating Zipkin trace information in your RestSharp calls you have to reference the Zipkin4RestSharp Nuget package, [![Zipkin4RestSharp](https://img.shields.io/nuget/v/Zipkin4RestSharp?style=flat)](https://www.nuget.org/packages/Zipkin4RestSharp), in your project and wrap you `IRestClient` into a `ZipkinRestClient` instance:
+```cs
+using Zipkin4RestSharp;
+
+...
+    var restClient = new RestClient("http://example.com");
+    if (zipkinEnabled)
+    {
+        restClient = new ZipkinRestClient(restClient);
+    }
+
+    var request = new RestRequest("resource/id", Method.GET);
+    IRestResponse response = client.Execute(request);
+
+```
+
+As in the case of `Zipkin4Owin`, `Zipkin4RestSharp` uses the standard Zipkin B3 HTTP headers for propagating the Zipkin traces information to the callee, in order to co-relate logs from different services taking part in the processing of the same request. This way, every HTTP request performed by via `ZipkinRestClient` will be injected the `X-B3-TraceId`, `X-B3-SpanId` and `X-B3-ParentSpanId` headers containing information of the current Zipkin trace.
