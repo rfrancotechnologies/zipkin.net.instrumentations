@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net461</TargetFrameworks>
+    <Version>1.4.0</Version>
+    <PackageId>Zipkin4Nancy</PackageId>
+    <Title>Zipkin4Nancy</Title>
+    <Description>Zipkin instrumentation for NancyFx applications, based on the Zipkin.net library (https://www.nuget.org/packages/Zipkin/). It allows to automatically log every incoming HTTP request into Zipkin, with time metrics and trace/span propagation.</Description>
+    <Authors>Ruben Martinez;mediatechsolutions</Authors>
+    <Copyright>Copyright Mediatech Solutions 2018</Copyright>
+    <PackageLicenseUrl>https://www.gnu.org/licenses/lgpl-3.0.en.html</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/mediatechsolutions/zipkin.net.instrumentations</PackageProjectUrl>
+    <PackageTags>Zipkin Metrics NancyFx Nancy HTTP</PackageTags>
+    <IncludeSource>false</IncludeSource>
+    <PackageReleaseNotes>
+      First release. Compatible with Nancy 1.4.x. It includes zipkin tracing a B3 header propagation.
+    </PackageReleaseNotes>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Nancy" Version="1.4.4" />
+    <PackageReference Include="Zipkin" Version="1.0.11" />
+  </ItemGroup>
+</Project>
