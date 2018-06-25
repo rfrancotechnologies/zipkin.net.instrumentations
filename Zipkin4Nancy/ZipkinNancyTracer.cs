@@ -4,7 +4,7 @@ using Zipkin;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace Zipkin4Owin
+namespace Zipkin4Nancy
 {
     public class ZipkinNancyTracer
     {
@@ -23,6 +23,8 @@ namespace Zipkin4Owin
         public void ZipkinTraceAfterRequest(NancyContext context)
         {
 			var trace = context.Items[zipkinTraceNancyContextItem] as ITrace;
+			if (context.Response?.StatusCode != null)
+				trace.Span.BinaryAnnotations.Add(new BinaryAnnotation("http.status_code", context.Response.StatusCode.ToString()));
 			if (trace != null)
 				trace.Dispose();
         }

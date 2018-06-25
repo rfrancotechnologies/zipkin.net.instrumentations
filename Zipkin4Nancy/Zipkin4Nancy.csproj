@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net461</TargetFrameworks>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
     <PackageId>Zipkin4Nancy</PackageId>
     <Title>Zipkin4Nancy</Title>
     <Description>Zipkin instrumentation for NancyFx applications, based on the Zipkin.net library (https://www.nuget.org/packages/Zipkin/). It allows to automatically log every incoming HTTP request into Zipkin, with time metrics and trace/span propagation.</Description>
@@ -12,7 +12,7 @@
     <PackageTags>Zipkin Metrics NancyFx Nancy HTTP</PackageTags>
     <IncludeSource>false</IncludeSource>
     <PackageReleaseNotes>
-      First release. Compatible with Nancy 1.4.x. It includes zipkin tracing a B3 header propagation.
+      Fixed namespace of the zipkin tracer for Nancy. Added annotation of the http response status code to the spans. Compatible with Nancy 1.4.x.
     </PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
