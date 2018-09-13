@@ -278,7 +278,6 @@ namespace Zipkin4RestSharp
             InjectZipkinTraces(request);
 			using (GetClientSendTrace(request))
 			{
-				InjectZipkinTraces(request);
 				return _innerClient.ExecuteAsPost(request, httpMethod);
 			}
 		}
@@ -286,7 +285,10 @@ namespace Zipkin4RestSharp
         public IRestResponse<T> ExecuteAsPost<T>(IRestRequest request, string httpMethod) where T : new()
         {
             InjectZipkinTraces(request);
-			return _innerClient.ExecuteAsPost<T>(request, httpMethod);
+            using (GetClientSendTrace(request))
+            {
+                return _innerClient.ExecuteAsPost<T>(request, httpMethod);
+            }
         }
 
         public RestRequestAsyncHandle ExecuteAsync(IRestRequest request, Action<IRestResponse, RestRequestAsyncHandle> callback)

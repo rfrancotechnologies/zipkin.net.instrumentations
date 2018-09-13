@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+	<metadata>
+		<id>Zipkin4RestSharp</id>
+		<version>0.1.0</version>
+		<title>Zipkin4RestSharp</title>
+		<authors>Rubén Martínez</authors>
+		<owners>Rubén Martínez, Mediatech Solutions</owners>
+		<licenseUrl>https://www.gnu.org/licenses/lgpl-3.0.en.html</licenseUrl>
+		<projectUrl>https://github.com/mediatechsolutions/zipkin.net.instrumentations</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Zipkin instrumentation for RestSharp based on the Zipkin.net library (https://www.nuget.org/packages/Zipkin/). It allows to automatically log every outgoing HTTP request into Zipkin, co-relating trace IDs.</description>
+		<summary>Zipkin instrumentation for RestSharp based on the Zipkin.net library (https://www.nuget.org/packages/Zipkin/).</summary>
+		<releaseNotes>First, fully functional version.</releaseNotes>
+		<copyright>Copyright Mediatech Solutions 2018</copyright>
+		<tags>Zipkin Metrics Owin HTTP RestSharp</tags>
+		<dependencies>
+			<dependency id="RestSharp" version="[105.0,106.0)" />
+			<dependency id="System.Buffers" version="[4.3.0,4.4.0)" />
+			<dependency id="Zipkin" version="1.0.10" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\Zipkin4RestSharp.dll" target="lib\net461" />
+	</files>
+</package>
