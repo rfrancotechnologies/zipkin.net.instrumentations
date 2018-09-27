@@ -11,6 +11,7 @@ using System.Net.Cache;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using Zipkin;
+using System.Net.Security;
 
 namespace Zipkin4RestSharp
 {
@@ -214,6 +215,97 @@ namespace Zipkin4RestSharp
             set
             {
                 _innerClient.UseSynchronizationContext = value;
+            }
+        }
+
+        public bool AutomaticDecompression
+        {
+            get
+            {
+                return _innerClient.AutomaticDecompression;
+            }
+
+            set
+            {
+                _innerClient.AutomaticDecompression = value;
+            }
+        }
+
+        public string ConnectionGroupName
+        {
+            get
+            {
+                return _innerClient.ConnectionGroupName;
+            }
+
+            set
+            {
+                _innerClient.ConnectionGroupName = value;
+            }
+        }
+
+        public bool UnsafeAuthenticatedConnectionSharing
+        {
+            get
+            {
+                return _innerClient.UnsafeAuthenticatedConnectionSharing;
+            }
+
+            set
+            {
+                _innerClient.UnsafeAuthenticatedConnectionSharing = value;
+            }
+        }
+
+        public string BaseHost
+        {
+            get
+            {
+                return _innerClient.BaseHost;
+            }
+
+            set
+            {
+                _innerClient.BaseHost = value;
+            }
+        }
+
+        public bool AllowMultipleDefaultParametersWithSameName
+        {
+            get
+            {
+                return _innerClient.AllowMultipleDefaultParametersWithSameName;
+            }
+
+            set
+            {
+                _innerClient.AllowMultipleDefaultParametersWithSameName = value;
+            }
+        }
+
+        public bool Pipelined
+        {
+            get
+            {
+                return _innerClient.Pipelined;
+            }
+
+            set
+            {
+                _innerClient.Pipelined = value;
+            }
+        }
+
+        public RemoteCertificateValidationCallback RemoteCertificateValidationCallback
+        {
+            get
+            {
+                return _innerClient.RemoteCertificateValidationCallback;
+            }
+
+            set
+            {
+                _innerClient.RemoteCertificateValidationCallback = value;
             }
         }
 
@@ -424,5 +516,63 @@ namespace Zipkin4RestSharp
 				request.AddHeader(parentSpanIdB3Header, span.ParentId.ToString());
 			}
 		}
+
+        public IRestResponse<T> Deserialize<T>(IRestResponse response)
+        {
+            return _innerClient.Deserialize<T>(response);
+        }
+
+        public IRestResponse Execute(IRestRequest request, Method httpMethod)
+        {
+            InjectZipkinTraces(request);
+            using (GetClientSendTrace(request))
+            {
+                return _innerClient.Execute(request, httpMethod);
+            }
+            
+        }
+
+        public IRestResponse<T> Execute<T>(IRestRequest request, Method httpMethod) where T : new()
+        {
+            InjectZipkinTraces(request);
+            using (GetClientSendTrace(request))
+            {
+                return _innerClient.Execute<T>(request, httpMethod);
+            }
+        }
+
+        public byte[] DownloadData(IRestRequest request, bool throwOnError)
+        {
+            return _innerClient.DownloadData(request, throwOnError);
+        }
+
+        public void ConfigureWebRequest(Action<HttpWebRequest> configurator)
+        {
+            _innerClient.ConfigureWebRequest(configurator);
+        }
+
+        public Task<IRestResponse<T>> ExecuteTaskAsync<T>(IRestRequest request, Method httpMethod)
+        {
+            InjectZipkinTraces(request);
+            return _innerClient.ExecuteTaskAsync<T>(request, httpMethod);
+        }
+
+        public Task<IRestResponse> ExecuteTaskAsync(IRestRequest request, CancellationToken token, Method httpMethod)
+        {
+            InjectZipkinTraces(request);
+            return _innerClient.ExecuteTaskAsync(request, token, httpMethod);
+        }
+
+        public RestRequestAsyncHandle ExecuteAsync(IRestRequest request, Action<IRestResponse, RestRequestAsyncHandle> callback, Method httpMethod)
+        {
+            InjectZipkinTraces(request);
+            return _innerClient.ExecuteAsync(request, callback, httpMethod);
+        }
+
+        public RestRequestAsyncHandle ExecuteAsync<T>(IRestRequest request, Action<IRestResponse<T>, RestRequestAsyncHandle> callback, Method httpMethod)
+        {
+            InjectZipkinTraces(request);
+            return _innerClient.ExecuteAsync<T>(request, callback, httpMethod);
+        }
     }
 }
