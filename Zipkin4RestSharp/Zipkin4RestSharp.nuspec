@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>Zipkin4RestSharp</id>
-		<version>0.1.0</version>
+		<version>0.1.1</version>
 		<title>Zipkin4RestSharp</title>
 		<authors>Rubén Martínez</authors>
 		<owners>Rubén Martínez, Mediatech Solutions</owners>
@@ -15,7 +15,7 @@
 		<copyright>Copyright Mediatech Solutions 2018</copyright>
 		<tags>Zipkin Metrics Owin HTTP RestSharp</tags>
 		<dependencies>
-			<dependency id="RestSharp" version="[105.0,106.0)" />
+			<dependency id="RestSharp" version="[106.4.2,107.0)" />
 			<dependency id="System.Buffers" version="[4.3.0,4.4.0)" />
 			<dependency id="Zipkin" version="1.0.10" />
 		</dependencies>
