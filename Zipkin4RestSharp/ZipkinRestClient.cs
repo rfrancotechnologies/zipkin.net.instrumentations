@@ -1,7 +1,6 @@
 ﻿using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using RestSharp.Authenticators;
@@ -509,13 +508,28 @@ namespace Zipkin4RestSharp
 		private void InjectZipkinTraces(IRestRequest request)
 		{
 			var span = TraceContextPropagation.CurrentSpan;
-			if (span != null)
+            if (span != null)
 			{
-				request.AddHeader(traceIdB3Header, span.TraceId.ToString());
-				request.AddHeader(spanIdB3Header, span.Id.ToString());
-				request.AddHeader(parentSpanIdB3Header, span.ParentId.ToString());
-			}
-		}
+                request.AddOrUpdateParameter(new Parameter() {
+                    Value = span.TraceId.ToString(),
+                    Type = ParameterType.HttpHeader,
+                    Name = traceIdB3Header
+                });
+                request.AddOrUpdateParameter(new Parameter()
+                {
+                    Value = span.Id.ToString(),
+                    Type = ParameterType.HttpHeader,
+                    Name = spanIdB3Header
+                });
+                request.AddOrUpdateParameter(new Parameter()
+                {
+                    Value = span.ParentId.ToString(),
+                    Type = ParameterType.HttpHeader,
+                    Name = parentSpanIdB3Header
+                });
+
+            }
+        }
 
         public IRestResponse<T> Deserialize<T>(IRestResponse response)
         {
