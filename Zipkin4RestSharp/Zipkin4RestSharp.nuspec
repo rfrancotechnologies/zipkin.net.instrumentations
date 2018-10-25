@@ -2,7 +2,7 @@
 <package >
 	<metadata>
 		<id>Zipkin4RestSharp</id>
-		<version>0.1.1</version>
+		<version>0.1.2</version>
 		<title>Zipkin4RestSharp</title>
 		<authors>Rubén Martínez</authors>
 		<owners>Rubén Martínez, Mediatech Solutions</owners>
@@ -11,7 +11,7 @@
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Zipkin instrumentation for RestSharp based on the Zipkin.net library (https://www.nuget.org/packages/Zipkin/). It allows to automatically log every outgoing HTTP request into Zipkin, co-relating trace IDs.</description>
 		<summary>Zipkin instrumentation for RestSharp based on the Zipkin.net library (https://www.nuget.org/packages/Zipkin/).</summary>
-		<releaseNotes>First, fully functional version.</releaseNotes>
+		<releaseNotes>Fixed issue with the setting of B3 headers and several calls per client.</releaseNotes>
 		<copyright>Copyright Mediatech Solutions 2018</copyright>
 		<tags>Zipkin Metrics Owin HTTP RestSharp</tags>
 		<dependencies>
