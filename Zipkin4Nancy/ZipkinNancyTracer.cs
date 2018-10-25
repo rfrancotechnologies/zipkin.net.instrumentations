@@ -23,7 +23,7 @@ namespace Zipkin4Nancy
         public void ZipkinTraceAfterRequest(NancyContext context)
         {
 			var trace = context.Items[zipkinTraceNancyContextItem] as ITrace;
-			if (context.Response?.StatusCode != null)
+			if (context.Response?.StatusCode != null && trace.Span != null)
 				trace.Span.BinaryAnnotations.Add(new BinaryAnnotation("http.status_code", context.Response.StatusCode.ToString()));
 			if (trace != null)
 				trace.Dispose();
