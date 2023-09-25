@@ -527,7 +527,6 @@ namespace Zipkin4RestSharp
                     Type = ParameterType.HttpHeader,
                     Name = parentSpanIdB3Header
                 });
-
             }
         }
 
